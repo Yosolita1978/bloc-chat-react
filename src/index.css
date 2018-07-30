@@ -32,3 +32,13 @@ body {
 .room-data{
   margin-bottom: 20px;
 }
+
+input{
+  margin-left: 5px;
+}
+
+input[type=submit] {
+  border: none;
+  margin-top: 5px;
+  width: 20em; height: 20px;
+}
