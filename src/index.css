@@ -46,3 +46,23 @@ input[type=submit] {
 .messages {
   text-align: left;
 }
+
+.username{
+  text-align: left;
+  padding: 25px;
+  color:blue;
+  font-size: 16px;
+}
+
+.signuser{
+  color: #0099CC;
+  background: transparent;
+  border: 2px solid #0099CC;
+  border-radius: 6px;
+  font-size: 16px;
+  margin: 4px 4px;
+}
+
+.buttons{
+  margin-top: 10px;
+}
