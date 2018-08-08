@@ -90,3 +90,13 @@ div#new-message.form-inline{
     border-radius: 4px;
     cursor: pointer;
 }
+
+.btn-delete{
+    background-color: red;
+    color: white;
+    margin: 8px 0;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    margin-left: 2em;
+}
