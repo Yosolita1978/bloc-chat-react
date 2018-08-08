@@ -11,7 +11,7 @@ class MessageList extends Component{
       messages: []
     }
 
-    this.messagesRef = this.props.firebase.database().ref("messages");
+    this.messagesRef = this.props.firebase.database().ref("Messages");
     this.handleChange=this.handleChange.bind(this);
     this.createMessage=this.createMessage.bind(this);
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
@@ -27,11 +27,12 @@ class MessageList extends Component{
   handleChange(e) {
     e.preventDefault();
     this.setState({
-      username: this.props.currentUser,
+      username: this.props.currentUser.displayName,
       content: e.target.value,
       sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-      roomId: this.props.activeRoom
+      roomId: this.props.activeRoom.key
     })
+    // console.log(this.state);
   }
 
   createMessage(e) {
@@ -52,16 +53,10 @@ class MessageList extends Component{
   handleMessageSubmit(e) {
     e.preventDefault();
     this.createMessage();
-    this.setState({
-      content: "",
-      sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
-     });
   }
 
   render(){
-    console.log(this.state.message);
-    let activeRoom = this.props.activeRoom.roomId;
-    console.log(activeRoom);
+
     return (
       <div className="message-list">
         <h2 className="room-name">{this.props.activeRoom ? this.props.activeRoom.name : 'Please select a room' }</h2>
@@ -75,18 +70,17 @@ class MessageList extends Component{
             </div>
             )}
         </div>
-        <div id="new-message">
+        <div  className="form-inline" id="new-message">
         { this.props.activeRoom && this.props.user !== null ?
-          <form onSubmit={this.handleMessageSubmit}>
+          <form className="form-group" onSubmit={this.handleMessageSubmit}>
               <label>
                 New Message:
-                <input type="text" value={this.state.content} onChange={this.handleChange} placeholder="Enter Message" />
+                <input className="form-control" type="text" value={this.state.content} onChange={this.handleChange} placeholder="Enter Message" />
               </label>
-              <input type="submit" value="submit" />
+              <input className="btn-submit" type="submit" value="submit" />
             </form>
             :
             <h3>Sign in and Select a Room to send a Message</h3>
-
           }
         </div>
         </div>
