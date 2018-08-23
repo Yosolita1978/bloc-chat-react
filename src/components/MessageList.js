@@ -20,6 +20,7 @@ class MessageList extends Component{
   componentDidMount() {
     this.messagesRef.on('child_added', snapshot => {
       const messages = snapshot.val();
+      messages.key = snapshot.key;
       this.setState({ messages: this.state.messages.concat( messages ) });
     });
   }
@@ -53,10 +54,7 @@ class MessageList extends Component{
   handleMessageSubmit(e) {
     e.preventDefault();
     this.createMessage();
-    this.setState({
-      content: "",
-      sentAt: this.formatTime()
-     });
+    this.setState({ content: "" });
   }
 
   formatTime(time) {
@@ -72,6 +70,16 @@ class MessageList extends Component{
     return timestamp;
   }
 
+  deleteMessage(messageKey) {
+    // console.log('trying to delete message', messageKey);
+    const message = this.props.firebase.database().ref('messages' + messageKey);
+    message.remove()
+    const remainMessages= this.state.messages
+      .filter(message => message.key !== messageKey);
+      this.setState({ messages: remainMessages});
+  }
+
+
 
   render(){
 
@@ -81,10 +89,11 @@ class MessageList extends Component{
         <div className="message-group">
           <h1>Messages</h1>
           {this.state.messages.filter(message => message.roomId === this.props.activeRoom.key).map((message, index) =>
-            <div key={index} className="messages">
+            <div key={message.key} className="messages">
               <p id="username">Username: {message.username}</p>
               <p id="content">Message: {message.content}</p>
               <p id="timestamp">Timestamp: {this.formatTime(message.sentAt)}</p>
+              <button onClick={ () => this.deleteMessage(message.key) }>Delete Message</button>
             </div>
             )}
         </div>
