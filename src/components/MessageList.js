@@ -85,7 +85,6 @@ class MessageList extends Component{
 
     return (
       <div className="message-list">
-        <h2 className="room-name">{this.props.activeRoom ? this.props.activeRoom.name : 'Please select a room' }</h2>
         <div className="message-group">
           <h1>Messages</h1>
           {this.state.messages.filter(message => message.roomId === this.props.activeRoom.key).map((message, index) =>
