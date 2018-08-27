@@ -30,8 +30,15 @@ class App extends Component {
   }
 
   setActiveRoom(room) {
-      this.setState({ activeRoom: room })
-      console.log(this.state.activeRoom);
+    if(room === null){
+      this.setState({activeRoom:""});
+
+    } else {
+      this.setState({ activeRoom: room });
+      console.log("SetActiveRoom funtion: ", this.state.activeRoom.name);
+    }
+
+
     }
 
   setUser(user) {
@@ -59,7 +66,7 @@ class App extends Component {
          <h2>{this.state.activeRoom.name|| "Select a Room"}</h2>
          { this.state.activeRoom.name ?
            <MessageList firebase={ firebase }  activeRoom={this.state.activeRoom} currentUser={this.state.activeUser} />
-         : null
+         : <h3> Select an existent Room </h3>
          }
 
          </div>

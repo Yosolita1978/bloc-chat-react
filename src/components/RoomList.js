@@ -23,6 +23,14 @@ class RoomList extends Component {
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat(room) })
     });
+
+    this.roomsRef.on('child_removed', snapshot => {
+      const room = snapshot.val();
+      room.key = snapshot.key;
+      this.setState({ rooms: this.state.rooms.filter( function(value) {
+        return value.key !== room.key;
+      }) })
+    });
   }
 
   handleSubmit(e) {
@@ -44,7 +52,7 @@ class RoomList extends Component {
        .filter(room => room.key !== roomKey);
 
        this.setState({ rooms: remainRoom });
-       //console.log('this.state:' , this.state);
+       this.props.setActiveRoom(null);
    }
 
 
